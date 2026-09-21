@@ -337,7 +337,7 @@
                 <label><input type="checkbox" class="brand-filter" value="zte"> ZTE / Nubia</label>
             </div>
 
-            <!-- Tính Năng 2: Lọc Theo Mức Giá -->
+            <!-- Mức Giá -->
             <h3>Mức giá</h3>
             <div class="filter-group">
                 <label><input type="checkbox" class="price-filter" value="under-3m"> Dưới 3 triệu</label>
@@ -348,6 +348,14 @@
 
         <!-- Danh sách sản phẩm -->
         <main class="product-grid" id="product-list">
+            <div class="product-card" data-name="ZTE Nubia Neo 5 GT" data-price="6490000" data-specs="• 6.7&quot; FHD+ 120Hz, Chip Gaming 5G, Pin 5000 mAh, Sạc nhanh 45W">
+                <img src="images - Sao chép.jpg" alt="ZTE Nubia Neo 5 GT">
+                <h4>ZTE Nubia Neo 5 GT</h4>
+                <div class="price">6.490.000₫</div>
+                <div class="specs-preview">• 6.7" 120Hz<br>• Chip Gaming 5G<br>• Pin: 5000 mAh, 45W</div>
+                <button class="btn add-to-cart">Chọn Mua</button>
+            </div>
+
             <div class="product-card" data-name="iPhone 17 Pro Max 256GB" data-price="33990000" data-specs="• 6.9&quot; OLED, Chip A19 Pro, Pin 4800 mAh, Camera 48MP">
                 <img src="iphone-17-pro-max-cam-thumb-600x600.jpg" alt="iPhone 17 Pro Max">
                 <h4>iPhone 17 Pro Max 256GB</h4>
@@ -398,7 +406,7 @@
         </main>
     </div>
 
-    <!-- Tính Năng 5: Lịch sử sản phẩm vừa xem (Đã thêm nút Xóa lịch sử) -->
+    <!-- Lịch sử sản phẩm vừa xem -->
     <div class="recent-section" id="recent-viewed-section" style="display: none;">
         <div class="recent-header">
             <h3>👁️ Sản phẩm bạn vừa xem</h3>
@@ -423,7 +431,7 @@
         </div>
     </div>
 
-    <!-- Modal Chi Tiết Sản Phẩm (Đã tích hợp Đánh giá & Bình luận) -->
+    <!-- Modal Chi Tiết Sản Phẩm -->
     <div class="modal" id="product-detail-modal">
         <div class="modal-content">
             <span class="close-modal" id="close-detail">✖</span>
@@ -433,7 +441,6 @@
                 <h3 id="detail-price" class="price">0₫</h3>
                 <div id="detail-specs" class="product-detail-specs"></div>
                 
-                <!-- Tính Năng 4: Đánh Giá Sao & Bình Luận -->
                 <div class="reviews-section">
                     <div class="rating-stars" id="detail-rating-display">⭐ 4.5 / 5 (12 đánh giá)</div>
                     <div class="review-list" id="detail-review-list">
@@ -467,7 +474,7 @@
         </div>
     </div>
 
-    <!-- Modal Giỏ Hàng (Đã tích hợp Mã giảm giá) -->
+    <!-- Modal Giỏ Hàng -->
     <div class="modal" id="cart-modal">
         <div class="modal-content">
             <span class="close-modal" id="close-cart">✖</span>
@@ -476,7 +483,6 @@
                 <p style="text-align: center; color: #777;">Giỏ hàng đang trống.</p>
             </div>
             
-            <!-- Tính Năng 1: Nhập Mã Giảm Giá -->
             <div class="voucher-box">
                 <input type="text" id="voucher-input" placeholder="Nhập mã (GIAM10K, TECHSTORE50)">
                 <button class="btn" style="width: auto; padding: 0 12px;" onclick="applyVoucher()">Áp dụng</button>
@@ -502,6 +508,18 @@
         </div>
     </div>
 
+    <!-- Modal Xem & Quản Lý Đơn Hàng Của Khách -->
+    <div class="modal" id="user-orders-modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <span class="close-modal" id="close-user-orders">✖</span>
+            <h2>📦 Đơn Hàng Của Tôi</h2>
+            <div id="user-orders-container" style="max-height: 350px; overflow-y: auto; margin-top: 10px;">
+                <!-- Danh sách đơn hàng cá nhân -->
+            </div>
+            <button class="btn" id="close-user-orders-btn" style="margin-top: 15px;">Đóng</button>
+        </div>
+    </div>
+
     <!-- Giao diện Quản trị Admin -->
     <div class="admin-dashboard" id="admin-dashboard">
         <div class="admin-header">
@@ -514,11 +532,15 @@
                 <h3>📊 Thống Kê Doanh Thu</h3>
                 <p>Doanh thu tháng này:</p>
                 <div class="stat-box">1.250.000.000 ₫</div>
-                <p>Đơn hàng đã xử lý: <strong>342 đơn</strong></p>
+                <p>Đơn hàng đã xử lý: <span id="admin-order-count">0</span> đơn</p>
             </div>
 
+            <!-- Khối Quản Lý Đơn Hàng được chèn thêm kèm nút Xóa tất cả -->
             <div class="admin-card" style="grid-column: span 1 / -1;">
-                <h3>📦 Quản Lý Đơn Hàng</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 2px solid var(--secondary-color); padding-bottom: 8px;">
+                    <h3 style="margin-bottom: 0; border: none; padding: 0;">📦 Quản Lý Đơn Hàng</h3>
+                    <button class="btn-danger" id="clear-all-orders-btn" style="padding: 6px 12px; font-weight: bold;">🗑️ Xóa tất cả đơn hàng</button>
+                </div>
                 <div style="overflow-x: auto;">
                     <table class="admin-table">
                         <thead>
@@ -571,10 +593,9 @@
             { username: "admin", password: "123", role: "Admin" }
         ];
         
-        // Dữ liệu đánh giá & lịch sử xem gần đây
         let productReviews = JSON.parse(localStorage.getItem('techstore_reviews')) || {};
         let recentViewed = JSON.parse(localStorage.getItem('techstore_recent')) || [];
-        let appliedDiscount = 0; // Giảm giá từ voucher
+        let appliedDiscount = 0;
 
         function saveData() {
             localStorage.setItem('techstore_orders', JSON.stringify(ordersList));
@@ -585,7 +606,6 @@
             localStorage.setItem('techstore_recent', JSON.stringify(recentViewed));
         }
 
-        // Tính Năng 3: Toast Notification thay cho alert()
         function showToast(message, type = 'success') {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
@@ -606,6 +626,7 @@
         const adminPanelBtn = document.getElementById('admin-panel-btn');
         const userDropdown = document.getElementById('user-dropdown');
         const userInfoModal = document.getElementById('user-info-modal');
+        const userOrdersModal = document.getElementById('user-orders-modal');
 
         if (currentUser) {
             authMainBtn.textContent = "👤 " + currentUser.username;
@@ -681,17 +702,53 @@
         });
 
         document.getElementById('dropdown-orders').addEventListener('click', () => {
-            if (!currentUser) return;
-            const myOrders = ordersList.filter(o => o.user === currentUser.username);
-            if (myOrders.length === 0) showToast("Bạn chưa có đơn hàng nào.", "error");
-            else {
-                let msg = `📦 ĐƠN HÀNG CỦA BẠN:\n\n`;
-                myOrders.forEach((o, i) => {
-                    msg += `${i + 1}. Mã: ${o.id} - ${o.status}\nSản phẩm: ${o.itemsSummary}\nTổng: ${o.total.toLocaleString('vi-VN')}₫\n\n`;
-                });
-                alert(msg);
+            if (!currentUser) {
+                showToast("Vui lòng đăng nhập để xem đơn hàng!", "error");
+                return;
             }
+            renderUserOrders();
+            userOrdersModal.style.display = 'flex';
         });
+
+        function renderUserOrders() {
+            const container = document.getElementById('user-orders-container');
+            const myOrders = ordersList.filter(o => o.user === currentUser.username);
+            
+            if (myOrders.length === 0) {
+                container.innerHTML = `<p style="text-align: center; color: #777; padding: 20px;">Bạn chưa có đơn hàng nào.</p>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            myOrders.forEach((o) => {
+                const realIndex = ordersList.findIndex(item => item.id === o.id);
+                container.innerHTML += `
+                    <div style="border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin-bottom: 10px; background: #fafafa; font-size: 13.5px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                            <strong>Mã đơn: ${o.id}</strong>
+                            <span style="color: ${o.status === 'Đã xác nhận' ? 'green' : '#e67e22'}; font-weight: bold;">${o.status}</span>
+                        </div>
+                        <p style="margin-bottom: 4px;"><strong>Sản phẩm:</strong> ${o.itemsSummary}</p>
+                        <p style="margin-bottom: 8px;"><strong>Tổng tiền:</strong> <span style="color: var(--accent-color); font-weight: bold;">${o.total.toLocaleString('vi-VN')}₫</span></p>
+                        <div style="text-align: right;">
+                            <button class="btn-danger" onclick="cancelMyOrder(${realIndex})">Hủy / Xóa đơn</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function cancelMyOrder(index) {
+            if (confirm("Bạn có chắc chắn muốn hủy/xóa đơn hàng này không?")) {
+                ordersList.splice(index, 1);
+                saveData();
+                renderUserOrders();
+                showToast("Đã xóa đơn hàng thành công!", "success");
+            }
+        }
+
+        document.getElementById('close-user-orders').addEventListener('click', () => userOrdersModal.style.display = 'none');
+        document.getElementById('close-user-orders-btn').addEventListener('click', () => userOrdersModal.style.display = 'none');
 
         document.getElementById('dropdown-logout').addEventListener('click', () => {
             currentUser = null;
@@ -704,7 +761,6 @@
         document.getElementById('close-user-info').addEventListener('click', () => userInfoModal.style.display = 'none');
         document.getElementById('close-info-btn').addEventListener('click', () => userInfoModal.style.display = 'none');
 
-        // Modal chi tiết & Đánh giá/Bình luận sản phẩm
         const productDetailModal = document.getElementById('product-detail-modal');
         let selectedProductName = "";
 
@@ -722,8 +778,6 @@
             
             renderReviews(name);
             productDetailModal.style.display = 'flex';
-
-            // Lưu vào lịch sử duyệt gần đây
             addToRecentViewed({ name, price, imgSrc, specs });
         }
 
@@ -762,7 +816,6 @@
             }
         });
 
-        // Xử lý lịch sử xem gần đây & Xóa lịch sử
         function addToRecentViewed(prod) {
             recentViewed = recentViewed.filter(p => p.name !== prod.name);
             recentViewed.unshift(prod);
@@ -793,7 +846,6 @@
             grid.querySelectorAll('.product-card').forEach(attachCardEvents);
         }
 
-        // Tính năng mới: Xóa toàn bộ lịch sử xem
         document.getElementById('clear-recent-btn').addEventListener('click', () => {
             recentViewed = [];
             saveData();
@@ -801,7 +853,6 @@
             showToast("Đã xóa lịch sử xem gần đây!", "success");
         });
 
-        // Bộ lọc theo mức giá & hãng sản xuất kết hợp
         const brandFilters = document.querySelectorAll('.brand-filter');
         const priceFilters = document.querySelectorAll('.price-filter');
 
@@ -833,7 +884,6 @@
         brandFilters.forEach(cb => cb.addEventListener('change', filterProducts));
         priceFilters.forEach(cb => cb.addEventListener('change', filterProducts));
 
-        // Admin Dash
         const adminDashboard = document.getElementById('admin-dashboard');
         document.getElementById('admin-panel-btn').addEventListener('click', () => {
             renderAdminProducts();
@@ -844,12 +894,54 @@
 
         function renderAdminOrders() {
             const tbody = document.getElementById('admin-orders-tbody');
+            document.getElementById('admin-order-count').textContent = ordersList.length;
             tbody.innerHTML = ordersList.length === 0 ? '<tr><td colspan="6" style="text-align:center;">Chưa có đơn hàng.</td></tr>' : '';
+            
             ordersList.forEach((o, i) => {
-                tbody.innerHTML += `<tr><td>${o.id}</td><td>${o.user}</td><td>${o.itemsSummary}</td><td>${o.total.toLocaleString('vi-VN')}₫</td><td>${o.status}</td><td><button class="btn-success" onclick="confirmOrder(${i})">Duyệt</button></td></tr>`;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${o.id}</td>
+                        <td>${o.user}</td>
+                        <td>${o.itemsSummary}</td>
+                        <td>${o.total.toLocaleString('vi-VN')}₫</td>
+                        <td>${o.status}</td>
+                        <td>
+                            <button class="btn-success" onclick="confirmOrder(${i})">Duyệt</button>
+                            <button class="btn-danger" onclick="deleteAdminOrder(${i})" style="margin-top: 4px;">Xóa</button>
+                        </td>
+                    </tr>`;
             });
         }
-        function confirmOrder(i) { ordersList[i].status = 'Đã xác nhận'; saveData(); renderAdminOrders(); showToast("Đã duyệt đơn hàng!", "success"); }
+        
+        function confirmOrder(i) { 
+            ordersList[i].status = 'Đã xác nhận'; 
+            saveData(); 
+            renderAdminOrders(); 
+            showToast("Đã duyệt đơn hàng!", "success"); 
+        }
+
+        function deleteAdminOrder(i) {
+            if (confirm(`Bạn có chắc chắn muốn xóa đơn hàng ${ordersList[i].id} không?`)) {
+                ordersList.splice(i, 1);
+                saveData();
+                renderAdminOrders();
+                showToast("Đã xóa đơn hàng khỏi hệ thống!", "success");
+            }
+        }
+
+        // Thêm tính năng xử lý sự kiện bấm nút "Xóa tất cả đơn hàng"
+        document.getElementById('clear-all-orders-btn').addEventListener('click', () => {
+            if (ordersList.length === 0) {
+                showToast("Danh sách đơn hàng đang trống!", "error");
+                return;
+            }
+            if (confirm("⚠️ Bạn có chắc chắn muốn xóa TẤT CẢ các đơn hàng trong hệ thống không? Thao tác này không thể hoàn tác!")) {
+                ordersList = [];
+                saveData();
+                renderAdminOrders();
+                showToast("Đã xóa tất cả đơn hàng!", "success");
+            }
+        });
 
         function renderAdminProducts() {
             const tbody = document.getElementById('admin-product-tbody');
@@ -891,7 +983,6 @@
             showToast("Thêm sản phẩm thành công!", "success");
         });
 
-        // Giỏ hàng & Mã giảm giá
         function addToCart(name, price) {
             const item = cart.find(i => i.name === name);
             if (item) item.quantity += 1; else cart.push({ name, price, quantity: 1 });
@@ -983,7 +1074,6 @@
         document.getElementById('cart-open-btn').addEventListener('click', () => { updateCartUI(); cartModal.style.display = 'flex'; });
         document.getElementById('close-cart').addEventListener('click', () => cartModal.style.display = 'none');
 
-        // Tìm kiếm
         const searchInput = document.getElementById('search-input');
         const suggestionsBox = document.getElementById('suggestions');
         searchInput.addEventListener('input', function() {
@@ -1003,7 +1093,6 @@
             } else { suggestionsBox.innerHTML = '<div style="color:#999">Không tìm thấy sản phẩm</div>'; }
         });
 
-        // Chatbot AI
         const chatWindow = document.getElementById('chat-window');
         document.getElementById('chat-toggle-btn').addEventListener('click', () => chatWindow.style.display = 'flex');
         document.getElementById('close-chat').addEventListener('click', () => chatWindow.style.display = 'none');
@@ -1029,6 +1118,7 @@
                 const q = text.toLowerCase();
                 if (q.includes('iphone')) reply = "Dòng iPhone nổi bật: iPhone 17 Pro Max trang bị chip A19 Pro siêu mạnh mẽ.";
                 else if (q.includes('samsung')) reply = "Samsung Galaxy S26 FE 5G hiện đang có giá cực tốt kèm nhiều ưu đãi trả góp.";
+                else if (q.includes('nubia') || q.includes('gt')) reply = "ZTE Nubia Neo 5 GT là mẫu smartphone gaming mạnh mẽ với giá chỉ 6.490.000₫.";
                 appendMessage(reply, false);
             }, 600);
         });
