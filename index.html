@@ -137,7 +137,10 @@
 
         /* Lịch sử sản phẩm vừa xem */
         .recent-section { max-width: 1200px; margin: 30px auto; padding: 0 15px; }
-        .recent-section h3 { font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #ddd; padding-bottom: 8px; }
+        .recent-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ddd; padding-bottom: 8px; margin-bottom: 15px; }
+        .recent-header h3 { font-size: 18px; margin-bottom: 0; border: none; padding: 0; }
+        .clear-recent-btn { background: transparent; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 600; }
+        .clear-recent-btn:hover { background: var(--accent-color); color: white; }
         .recent-grid { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; }
         .recent-grid .product-card { min-width: 200px; flex: 0 0 auto; }
 
@@ -395,9 +398,12 @@
         </main>
     </div>
 
-    <!-- Tính Năng 5: Lịch sử sản phẩm vừa xem -->
+    <!-- Tính Năng 5: Lịch sử sản phẩm vừa xem (Đã thêm nút Xóa lịch sử) -->
     <div class="recent-section" id="recent-viewed-section" style="display: none;">
-        <h3>👁️ Sản phẩm bạn vừa xem</h3>
+        <div class="recent-header">
+            <h3>👁️ Sản phẩm bạn vừa xem</h3>
+            <button class="clear-recent-btn" id="clear-recent-btn">Xóa lịch sử</button>
+        </div>
         <div class="recent-grid" id="recent-grid"></div>
     </div>
 
@@ -698,7 +704,7 @@
         document.getElementById('close-user-info').addEventListener('click', () => userInfoModal.style.display = 'none');
         document.getElementById('close-info-btn').addEventListener('click', () => userInfoModal.style.display = 'none');
 
-        // Tính Năng 4: Modal chi tiết & Đánh giá/Bình luận sản phẩm
+        // Modal chi tiết & Đánh giá/Bình luận sản phẩm
         const productDetailModal = document.getElementById('product-detail-modal');
         let selectedProductName = "";
 
@@ -717,7 +723,7 @@
             renderReviews(name);
             productDetailModal.style.display = 'flex';
 
-            // Tính Năng 5: Lưu vào lịch sử duyệt gần đây
+            // Lưu vào lịch sử duyệt gần đây
             addToRecentViewed({ name, price, imgSrc, specs });
         }
 
@@ -756,7 +762,7 @@
             }
         });
 
-        // Tính Năng 5: Xử lý lịch sử xem gần đây
+        // Xử lý lịch sử xem gần đây & Xóa lịch sử
         function addToRecentViewed(prod) {
             recentViewed = recentViewed.filter(p => p.name !== prod.name);
             recentViewed.unshift(prod);
@@ -784,11 +790,18 @@
                     </div>
                 `;
             });
-            // Gắn lại sự kiện cho các card vừa render
             grid.querySelectorAll('.product-card').forEach(attachCardEvents);
         }
 
-        // Tính Năng 2: Bộ lọc theo mức giá & hãng sản xuất kết hợp
+        // Tính năng mới: Xóa toàn bộ lịch sử xem
+        document.getElementById('clear-recent-btn').addEventListener('click', () => {
+            recentViewed = [];
+            saveData();
+            renderRecentViewed();
+            showToast("Đã xóa lịch sử xem gần đây!", "success");
+        });
+
+        // Bộ lọc theo mức giá & hãng sản xuất kết hợp
         const brandFilters = document.querySelectorAll('.brand-filter');
         const priceFilters = document.querySelectorAll('.price-filter');
 
@@ -878,7 +891,7 @@
             showToast("Thêm sản phẩm thành công!", "success");
         });
 
-        // Giỏ hàng & Tính Năng 1: Mã giảm giá
+        // Giỏ hàng & Mã giảm giá
         function addToCart(name, price) {
             const item = cart.find(i => i.name === name);
             if (item) item.quantity += 1; else cart.push({ name, price, quantity: 1 });
